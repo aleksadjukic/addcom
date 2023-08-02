@@ -1,14 +1,13 @@
 import { ReactSortable } from "react-sortablejs";
 import Draggable from "./Draggable";
 import { useCanvasBoard } from "@/hooks/useCanvasBoard";
-import { useState } from "react";
 
 interface ICanvasBoardProps {
   name: string;
 }
 
 const CanvasBoard = ({ name }: ICanvasBoardProps) => {
-  const { elements, setElements, shouldDisableDrop, containerEmpty, setContainerEmpty, handleOnMove } = useCanvasBoard(name);
+  const { elements, setElements, shouldDisableDrop, containerEmpty, setContainerEmpty, handleOnMove, handleOnChoose } = useCanvasBoard(name);
 
   return (
     <div className="py-[16px] px-[8px] bg-[#F6F6F6] rounded">
@@ -20,11 +19,11 @@ const CanvasBoard = ({ name }: ICanvasBoardProps) => {
             id={name}
             disabled={shouldDisableDrop}
             group={{ name, put: true }} list={elements} setList={setElements}
-            chosenClass="chosen"
             ghostClass="ghost-item"
             className={`py-[8px] px-[4px] flex flex-col justify-center items-center flex-1 w-[818px] min-h-[138px] z-20 gap-[8px]`}
             onMove={handleOnMove}
             onEnd={() => setContainerEmpty(false)}
+            onChoose={handleOnChoose}
           >
 
             {elements.map((item, index) => (

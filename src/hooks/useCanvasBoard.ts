@@ -21,12 +21,6 @@ export const useCanvasBoard = (name: string) => {
         const targetContainerId = evt.to.getAttribute('id');
         const draggedItem = evt.dragged.getAttribute('id')
 
-        const sourceContainerEmpty = evt.from.childElementCount === 1;
-
-        if (sourceContainerEmpty) {
-            setContainerEmpty(true)
-        }
-
         const canDropInHeader = (sourceContainerId === 'body' && targetContainerId === 'header' && draggedItem === 'image') || sourceContainerId === 'header' && targetContainerId === 'header';
         const canDropInBody = (sourceContainerId === 'header' && targetContainerId === 'body') || sourceContainerId === 'body' && targetContainerId === 'body';
 
@@ -37,5 +31,14 @@ export const useCanvasBoard = (name: string) => {
         return false;
     };
 
-    return { elements, setElements, shouldDisableDrop, isBoardEmpty, containerEmpty, setContainerEmpty, handleOnMove }
+
+    const handleOnChoose = (evt: any) => {
+        const sourceContainerEmpty = evt.from.childElementCount === 1;
+
+        if (sourceContainerEmpty) {
+            setContainerEmpty(true);
+        }
+    }
+
+    return { elements, setElements, shouldDisableDrop, isBoardEmpty, containerEmpty, setContainerEmpty, handleOnMove, handleOnChoose }
 }
